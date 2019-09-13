@@ -2,6 +2,10 @@ html, body {
     margin: 0;
     padding: 0;
 }
-#kitten, #wool, #score {
+#kitten, .wool, #score {
     position: fixed;
+}
+
+.wool {
+    display: none;
 }
