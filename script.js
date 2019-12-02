@@ -130,18 +130,18 @@ Wool.collision = function(wool) {
 
 // This function doesn't really belong to a specific class. It's used in Wool and Game.
 // Therefore, this can be a global helper function.
-function isCollide(element1, element2) {
+function isCollide($element1, $element2) {
     var a = {
-        y: 100 - element1.offsetTop - element1.height, 
-        x: element1.offsetLeft,
-        height: element1.height,
-        width: element1.width
+        y: 100 - $element1.offsetTop - $element1.height, 
+        x: $element1.offsetLeft,
+        height: $element1.height,
+        width: $element1.width
     }
     var b = {
-        y: 100 - element2.offsetTop - element2.height, 
-        x: element2.offsetLeft,
-        height: element2.height,
-        width: element2.width
+        y: 100 - $element2.offsetTop - $element2.height, 
+        x: $element2.offsetLeft,
+        height: $element2.height,
+        width: $element2.width
     }
 
     return !(
