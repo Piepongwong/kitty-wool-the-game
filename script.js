@@ -3,8 +3,8 @@
 class Game {
 
     constructor() {
-        this.kitten = new Kitten()
-        this.wools = [new Wool()]
+        this.kitten = new Kitten(40)
+        this.wools = [new Wool(), new Wool(), new Wool(), new Wool(),new Wool()]
         this.score = 0
         this.start()
     }
@@ -18,8 +18,6 @@ class Game {
             if(fixThis.checkCollisionWool()) {
                 fixThis.score++
                 fixThis.updateScore()
-                debugger
-
             }
         })
     }
@@ -29,13 +27,13 @@ class Game {
     }
     // Checks for collission between the wools and the kitten.
     checkCollisionWool() {
-        debugger
+        
         var wools = this.wools
         var kitten = this.kitten
         for(let i =0; i < wools.length; i++) {
             if(isCollide(kitten.htmlRef, wools[i].htmlRef)) {
                 wools[i].appearRandom(this.kitten)
-                this.checkCollisionWool()
+                // this.checkCollisionWool()
                 return true
             }
         }
@@ -45,7 +43,8 @@ class Game {
 
 class Kitten {
 
-    constructor(){
+    constructor(speed){
+        this.speed = speed
         this.htmlRef = document.getElementById("kitten")
         // After creating the kitty, we're iniating the controls.
         // The kitty is in charge of it's own life. It's an independent kitty. You go kitty!
@@ -56,22 +55,30 @@ class Kitten {
 
     initiateControls() {
         var kitten = this.htmlRef
+        // keyboard controls
+        let fixThis = this;
         window.addEventListener("keydown", function(e){
             switch(e.key) {
                 case("ArrowRight"):
-                    kitten.style.left = `${kitten.offsetLeft + 10}px`
+                    kitten.style.left = `${kitten.offsetLeft + fixThis.speed}px`
                 break;
                 case("ArrowLeft"):
-                    kitten.style.left = `${kitten.offsetLeft - 10}px`
+                    kitten.style.left = `${kitten.offsetLeft - fixThis.speed}px`
                 break;
                 case("ArrowUp"):
-                    kitten.style.top = `${kitten.offsetTop - 10}px`
+                    kitten.style.top = `${kitten.offsetTop - fixThis.speed}px`
                 break;
                 case("ArrowDown"):
-                    kitten.style.top = `${kitten.offsetTop + 10}px`
+                    kitten.style.top = `${kitten.offsetTop + fixThis.speed}px`
                 break;
             }
         })
+        // mouse controls
+        // window.addEventListener("mousemove", function(e){
+        //     debugger
+        //     kitten.style.left = `${e.clientX}px`;
+        //     kitten.style.top = `${e.clientY}px`;
+        // })
     }
 }
 
@@ -117,9 +124,10 @@ Wool.wools = []
 Wool.collision = function(wool) {
     var wools = Wool.wools
     for(let i = 0 ; i < wools.length; i++) {
-        if(isCollide(wool, wools[i].htmlRef)&& wool != wools[i].htmlRef) return true
+        if(isCollide(wool, wools[i].htmlRef) && wool != wools[i].htmlRef) return true
     }
 }
+
 // This function doesn't really belong to a specific class. It's used in Wool and Game.
 // Therefore, this can be a global helper function.
 function isCollide(element1, element2) {
